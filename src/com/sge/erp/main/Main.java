@@ -20,8 +20,8 @@ public class Main {
         try {
             AdminDataBase ads = new AdminDataBase();
             ManagerProjects mgp = new ManagerProjects();
-            ads.openConnection();
-           // mgp.insertProject(new Project(0, "0354685K", "Andres"));
+           // ads.openConnection();
+            mgp.insertProject(new Project(0, "0354685K", "Andres"));
             
             
             

@@ -8,7 +8,7 @@ public class AdminDataBase {
 
     protected Connection connection;
     protected static final String DRIVER = "com.mysql.jdbc.Driver";
-    protected static final String SERVER = "jdbc:mysql://programmershackers.ddns.net:80/erp_sge";
+    protected static final String SERVER = "jdbc:mysql://programmershackers.ddns.net:3389/erp_sge";
     protected static final String USER = "pi";
     protected static final String PASSWORD = "alex";
 
