@@ -7,10 +7,10 @@ import java.sql.SQLException;
 public class AdminDataBase {
 
     protected Connection connection;
-    protected static final String DRIVER = "com.mysql.jdbc.Driver";
-    protected static final String SERVER = "jdbc:mysql://programmershackers.ddns.net:3389/erp_sge";
-    protected static final String USER = "pi";
-    protected static final String PASSWORD = "alex";
+    protected static final String DRIVER = "org.mariadb.jdbc.Driver";
+    protected static final String SERVER = "jdbc:mysql://programmershackers.ddns.net:3306/erp_sge";
+    protected static final String USER = "erpsge";
+    protected static final String PASSWORD = "erpteam";
 
     public AdminDataBase() throws ClassNotFoundException {
         Class.forName(DRIVER);

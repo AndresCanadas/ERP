@@ -12,6 +12,19 @@ public class ManagerProjects extends AdminDataBase {
     public ManagerProjects() throws ClassNotFoundException {
         super();
     }
+    
+    public void insertAlex() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            openConnection();
+        }
+        String sql = "INSERT INTO alex (nombre, edad) VALUES (?, ?)";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, "AndresPruebaxddd");
+        ps.setInt(2, 20);
+
+        ps.executeUpdate();
+
+    }
 
     public void insertProject(Project pj) throws SQLException {
         if (connection == null || connection.isClosed()) {
