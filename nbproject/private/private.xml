@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/persistence/ManagerStaff_Team.java</file>
+            <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/persistence/ManagerUsers.java</file>
             <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/main/Main.java</file>
             <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/persistence/ManagerProjects.java</file>
+            <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/persistence/ManagerTeam.java</file>
+            <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/persistence/ManagerClient.java</file>
             <file>file:/F:/Dam2A/SGE/ERPSGE/ERP/src/com/sge/erp/persistence/AdminDataBase.java</file>
         </group>
     </open-files>
