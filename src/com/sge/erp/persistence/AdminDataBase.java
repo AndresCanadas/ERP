@@ -25,4 +25,10 @@ public class AdminDataBase {
         connection.close();
     }
 
+    public void verifyConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            openConnection();
+        }
+    }
+
 }

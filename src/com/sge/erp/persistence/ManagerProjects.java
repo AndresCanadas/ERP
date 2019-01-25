@@ -14,9 +14,7 @@ public class ManagerProjects extends AdminDataBase {
     }
     
     public void insertAlex() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "INSERT INTO alex (nombre, edad) VALUES (?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, "AndresPruebaxddd");
@@ -27,9 +25,7 @@ public class ManagerProjects extends AdminDataBase {
     }
 
     public void insertProject(Project pj) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "INSERT INTO project (id_project, nif_client, name) VALUES (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, pj.getId_project());
@@ -40,19 +36,17 @@ public class ManagerProjects extends AdminDataBase {
     }
 
     public void updateProject(int id_project, Project pj) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "UPDATE project SET nif_client = '" + pj.getNif_client() + "' , name = '" + pj.getName() + "'  WHERE id_project =  '" + id_project + "' ";
         Statement st = connection.createStatement();
         st.executeUpdate(sql);
+        st.close();
+        
     }
 
     public ArrayList<Project> getProject(int id_project) throws SQLException {
         ArrayList<Project> pjs = new ArrayList<>();
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "SELECT * FROM project WHERE id_project = '" + id_project + "'";
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -61,16 +55,15 @@ public class ManagerProjects extends AdminDataBase {
             pjs.add(new Project(rs.getInt(0), rs.getString(1), rs.getString(2)));
 
         }
-
+        rs.close();
+        st.close();
         return pjs;
 
     }
 
     public ArrayList<Project> getProjects() throws SQLException {
         ArrayList<Project> pjs = new ArrayList<>();
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "SELECT * FROM project";
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -79,18 +72,18 @@ public class ManagerProjects extends AdminDataBase {
             pjs.add(new Project(rs.getInt(0), rs.getString(1), rs.getString(2)));
 
         }
-
+        rs.close();
+        st.close();
         return pjs;
 
     }
 
     public void deleteProject(int id_project) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "DELETE FROM project WHERE id_project = '" + id_project + "'";
         Statement st = connection.createStatement();
         st.executeUpdate(sql);
+        st.close();
 
     }
 

@@ -12,123 +12,85 @@ public class ManagerClient extends AdminDataBase {
 
     public ManagerClient() throws ClassNotFoundException {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public void insertClient() {
-        try {
-            if (connection == null || connection.isClosed()) {
-                openConnection();
-            }
+    public void insertClient(Client c) throws SQLException {
 
-            String sql = "INSERT INTO client (nif, name, email, phone, address) VALUE (?, ?, ?, ?, ?);";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "70069267C");
-            ps.setString(2, "Jorge");
-            ps.setString(3, "d@g.c");
-            ps.setInt(4, 676729969);
-            ps.setString(5, "Nueva 2 ALC");
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        verifyConnection();
+        String sql = "INSERT INTO client (nif, name, email, phone, address) VALUE (?, ?, ?, ?, ?);";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, c.getNif());
+        ps.setString(2, c.getName());
+        ps.setString(3, c.getEmail());
+        ps.setInt(4, Integer.parseInt(c.getPhone()));
+        ps.setString(5, c.getAddress());
+        ps.executeUpdate();
 
     }
 
-    public ArrayList<Client> readClient(Client c) {
-        ArrayList<Client> client = null;
-        try {
-            if (connection == null || connection.isClosed()) {
-                openConnection();
-            }
+    public ArrayList<Client> readClient(String nifClient) throws SQLException {
+        ArrayList<Client> client = new ArrayList<>();
+        verifyConnection();
 
-            String sql = "SELECT * FROM client WHERE nif = '" + c.getNif() + "';";
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        String sql = "SELECT * FROM client WHERE nif = '" + nifClient + "';";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(sql);
 
-            while (rs.next()) {
-                //System.out.println(rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getInt(4) + rs.getString(5));
-                String nif = rs.getString(1);
-                String name = rs.getString(2);
-                String email = rs.getString(3);
-                String phone = Integer.toString(rs.getInt(4));
-                String address = rs.getString(5);
-                client.add(new Client(nif, name, email, phone, address));
-            }
-
-            rs.close();
-            st.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        while (rs.next()) {
+            String nif = rs.getString(1);
+            String name = rs.getString(2);
+            String email = rs.getString(3);
+            String phone = Integer.toString(rs.getInt(4));
+            String address = rs.getString(5);
+            client.add(new Client(nif, name, email, phone, address));
         }
+
+        rs.close();
+        st.close();
+
         return client;
     }
 
-    public ArrayList<Client> readClients(Client c) {
-        ArrayList<Client> client = null;
-        try {
-            if (connection == null || connection.isClosed()) {
-                openConnection();
-            }
+    public ArrayList<Client> readClients() throws SQLException {
+        ArrayList<Client> client = new ArrayList<>();
+        verifyConnection();
 
-            String sql = "SELECT * FROM client ;";
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        String sql = "SELECT * FROM client ;";
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(sql);
 
-            while (rs.next()) {
-                //System.out.println(rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getInt(4) + rs.getString(5));
-                String nif = rs.getString(1);
-                String name = rs.getString(2);
-                String email = rs.getString(3);
-                String phone = Integer.toString(rs.getInt(4));
-                String address = rs.getString(5);
-                client.add(new Client(nif, name, email, phone, address));
-            }
-
-            rs.close();
-            st.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        while (rs.next()) {
+            String nif = rs.getString(1);
+            String name = rs.getString(2);
+            String email = rs.getString(3);
+            String phone = Integer.toString(rs.getInt(4));
+            String address = rs.getString(5);
+            client.add(new Client(nif, name, email, phone, address));
         }
+
+        rs.close();
+        st.close();
         return client;
     }
 
-    public void updateClient(Client c) {
-        try {
-            if (connection == null || connection.isClosed()) {
-                openConnection();
-            }
-            String sql = "UPDATE client SET nif = '" + c.getNif() + "', name = '" + c.getName() + "', email = '" + c.getEmail() + "', phone = '" + c.getPhone() + "', address = '" + c.getAddress() + "' WHERE nif = '" + c.getNif() + "';";
-            Statement st = connection.createStatement();
+    public void updateClient(Client c) throws SQLException {
+        verifyConnection();
+        String sql = "UPDATE client SET nif = '" + c.getNif() + "', name = '" + c.getName() + "', email = '" + c.getEmail() + "', phone = '" + c.getPhone() + "', address = '" + c.getAddress() + "' WHERE nif = '" + c.getNif() + "';";
+        Statement st = connection.createStatement();
+        st.executeUpdate(sql);
+        st.close();
 
-            st.executeUpdate(sql);
-
-            st.close();
-
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
-    public void deleteClient(Client c) {
-        try {
-            if (connection == null || connection.isClosed()) {
-                openConnection();
-            }
-            String sql = "DELETE FROM client WHERE nif = '" + c.getNif() + "';";
-            Statement st = connection.createStatement();
+    public void deleteClient(String nifClient) throws SQLException {
+        verifyConnection();
+        String sql = "DELETE FROM client WHERE nif = '" + nifClient + "';";
+        Statement st = connection.createStatement();
 
-            st.executeUpdate(sql);
+        st.executeUpdate(sql);
 
-            st.close();
+        st.close();
 
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
 }

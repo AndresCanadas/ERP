@@ -14,9 +14,7 @@ public class ManagerStaff extends AdminDataBase {
     }
 
     public void insertStaff(Staff sf) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "INSERT INTO staff (dni, id_task, name, surname, job) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, sf.getDni());
@@ -29,19 +27,16 @@ public class ManagerStaff extends AdminDataBase {
     }
 
     public void updateStaff(String dni, Staff sf) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "UPDATE staff SET id_task = '" + sf.getId_task() + "' , name = '" + sf.getName() + "' , surname = '" + sf.getSurname() + "', job = '" + sf.getJob() + "'  WHERE dni =  '" + dni + "' ";
         Statement st = connection.createStatement();
         st.executeUpdate(sql);
+        st.close();
     }
 
     public ArrayList<Staff> getStaff(String dni) throws SQLException {
         ArrayList<Staff> sfs = new ArrayList<>();
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "SELECT * FROM staff WHERE dni = '" + dni + "'";
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -50,6 +45,8 @@ public class ManagerStaff extends AdminDataBase {
             sfs.add(new Staff(rs.getString(0), rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 
         }
+        rs.close();
+        st.close();
 
         return sfs;
 
@@ -57,9 +54,7 @@ public class ManagerStaff extends AdminDataBase {
 
     public ArrayList<Staff> getStaffs() throws SQLException {
         ArrayList<Staff> sfs = new ArrayList<>();
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "SELECT * FROM staff";
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -68,19 +63,19 @@ public class ManagerStaff extends AdminDataBase {
             sfs.add(new Staff(rs.getString(0), rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 
         }
+        rs.close();
+        st.close();
 
         return sfs;
 
     }
 
     public void deleteStaff(String dni) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            openConnection();
-        }
+        verifyConnection();
         String sql = "DELETE FROM staff WHERE dni = '" + dni + "'";
         Statement st = connection.createStatement();
         st.executeUpdate(sql);
-
+        st.close();
     }
 
 }
